@@ -15,13 +15,17 @@ car_width = 73
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Particles in da house')
 clock = pygame.time.Clock()
-obstacle = pygame.Rect(400,200,80,80)
-
+obstacle = pygame.Rect(400,300,80,80)
 carImg = pygame.image.load('circle.png')
 rect = carImg.get_rect()
+rect1 = carImg.get_rect()
 def car(x,y):
     gameDisplay.blit(carImg,rect)
-
+#hay que meter rect1 para que aparezca la segunda bola.Tambien hay que definir
+#x1 e y1 dentro del bucle del juego, aunque todo empieza en 0,0 igualmente
+#porque la funcion get_rect va con el 0,0
+def particle(x1,y1):
+    gameDisplay.blit(carImg,rect1)
 
 
 def text_objects(text, font):
@@ -46,17 +50,16 @@ def crash():
     message_display('You Crashed')
     
 def game_loop():
-    x = (display_width * 0.45)
-    y = (display_height * 0.8)
-   # x1 = 0.2*x
-   # y1 = 0.2*y
+    x=400
+    y=200
+    x1=200
+    y1=200
     x_change = 0
     y_change = 0
     y1_change = 0
     gameExit = False
 
     while not gameExit:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -78,16 +81,30 @@ def game_loop():
                     x_change = 0
         rect.x += x_change
         rect.y += y_change
-       # rect.y1 += y1_change
+        rect1.y+=1 #no es y1
         gameDisplay.fill(white)
         pygame.draw.rect(gameDisplay, (0,0,0),obstacle,4)
         car(x,y)
-       # car(x1,y1)
+        particle(x1,y1)
         if x > display_width - car_width or x < 0:
             crash()
+        print(rect.x,rect.y)
+       # if rect.x<480 and rect.x>350 and rect.y<380 and rect.y>250:
+           # for i in range(1,40):
+
+               # x_change = -x_change
+               # y_change = -y_change
+           # rect.x += x_change
+           # rect.y += y_change
+            
         if rect.colliderect(obstacle):
             pygame.draw.rect(gameDisplay,(255,0,0),rect,4)
-            x = 0
+            for i in range(1,40):
+
+                x_change = -x_change
+                y_change = -y_change
+            rect.x +=x_change
+            rect.y +=y_change
              
         pygame.display.update()
         clock.tick(60)
