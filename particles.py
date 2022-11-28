@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 obstacle = pygame.Rect(400,300,80,80)
 carImg = pygame.image.load('circle.png')
 rect = carImg.get_rect()
-rect1 = carImg.get_rect()
+rect1 = carImg.get_rect(center=(100,100))
 def car(x,y):
     gameDisplay.blit(carImg,rect)
 #hay que meter rect1 para que aparezca la segunda bola.Tambien hay que definir
@@ -56,7 +56,8 @@ def game_loop():
     y1=200
     x_change = 0
     y_change = 0
-    y1_change = 0
+    x1_change=2
+    y1_change = 1
     gameExit = False
 
     while not gameExit:
@@ -81,7 +82,8 @@ def game_loop():
                     x_change = 0
         rect.x += x_change
         rect.y += y_change
-        rect1.y+=1 #no es y1
+        rect1.y+=y1_change #no es y1
+       # rect1.x+=x1_change
         gameDisplay.fill(white)
         pygame.draw.rect(gameDisplay, (0,0,0),obstacle,4)
         car(x,y)
@@ -99,13 +101,25 @@ def game_loop():
             
         if rect.colliderect(obstacle):
             pygame.draw.rect(gameDisplay,(255,0,0),rect,4)
-            for i in range(1,40):
+            #for i in range(1,40):
 
-                x_change = -x_change
-                y_change = -y_change
+            x_change = -x_change
+            y_change = -y_change
             rect.x +=x_change
             rect.y +=y_change
-             
+        if rect.colliderect(rect1):
+            pygame.draw.rect(gameDisplay,(255,0,0),rect,4)
+          #  for i in range(1,40):
+
+            x_change=-x_change
+            y_change=-y_change
+            x1_change = -x1_change
+            y1_change = -y1_change
+            rect.x +=x_change
+            rect.y +=y_change
+            rect1.x -=x_change+x1_change
+            rect1.y -=y_change+y1_change
+
         pygame.display.update()
         clock.tick(60)
 
