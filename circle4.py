@@ -1,4 +1,5 @@
 import pygame
+import math
 posix=0
 posiy=0
 change=0
@@ -7,6 +8,11 @@ posicy=0
 posicx=0
 posicx1=0
 posicy1=0
+v1x=1
+v1y=0
+v2x=1
+v2y=1
+alpha=0#(v1x*v2x+v1y*v2y)/(math.sqrt((v1x^2)+(v1y^2))*math.sqrt((v2x^2)+(v2y^2)))
 pygame.init()
 window = pygame.display.set_mode((1000, 1000))
 
@@ -96,10 +102,15 @@ while run:
         sprite2.rect.y+=k+s
             #sprite2.rect.y+=sprite1.rect.y*0.01
 
+
     change = sprite1.rect.x
     changey=sprite1.rect.y
-    sprite5.rect.move_ip([1,1])
-    sprite4.rect.move_ip([2,2])
+    
+    alpha=math.acos((v1x*v2x+v1y*v2y)/(math.sqrt((v1x^2)+(v1y^2))*math.sqrt((v2x^2)+(v2y^2))))
+
+    print(alpha)
+    sprite5.rect.move_ip([v1x,v1y])
+    sprite4.rect.move_ip([v2x,v2y])
 
     sprite2.rect.x+=0.006*posix
     sprite2.rect.y+=0.006*posiy
