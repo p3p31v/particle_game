@@ -106,8 +106,9 @@ while run:
     change = sprite1.rect.x
     changey=sprite1.rect.y
     
-    alpha=math.acos((v1x*v2x+v1y*v2y)/(math.sqrt((v1x^2)+(v1y^2))*math.sqrt((v2x^2)+(v2y^2))))
-
+    alpha=(v1x*v2x+v1y*v2y)/(math.sqrt((v1x**2)+(v1y**2))*math.sqrt((v2x**2)+(v2y**2)))
+    alpha=math.acos(alpha)
+    
     print(alpha)
     sprite5.rect.move_ip([v1x,v1y])
     sprite4.rect.move_ip([v2x,v2y])
