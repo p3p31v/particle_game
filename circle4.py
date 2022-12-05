@@ -8,10 +8,12 @@ posicy=0
 posicx=0
 posicx1=0
 posicy1=0
+posix45=0
+posiy45=0
 v1x=1
 v1y=0
-v2x=1
-v2y=1
+v2x=-1
+v2y=0
 alpha=0#(v1x*v2x+v1y*v2y)/(math.sqrt((v1x^2)+(v1y^2))*math.sqrt((v2x^2)+(v2y^2)))
 pygame.init()
 window = pygame.display.set_mode((1000, 1000))
@@ -31,15 +33,15 @@ sprite3.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
 sprite4 = pygame.sprite.Sprite()
 sprite4.image = pygame.Surface((80,80),pygame.SRCALPHA)
-pygame.draw.circle(sprite4.image, (0,0,55),(40,40),40)
+pygame.draw.circle(sprite4.image, (255,0,255),(40,40),40)
 sprite4.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
 sprite5 = pygame.sprite.Sprite()
 sprite5.image = pygame.Surface((80,80),pygame.SRCALPHA)
-pygame.draw.circle(sprite5.image, (0,0,125),(40,40),40)
+pygame.draw.circle(sprite5.image, (255,255,0),(40,40),40)
 sprite5.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
-
+sprite4.rect.x=100
 
 all_group = pygame.sprite.Group([sprite2, sprite1,sprite3,sprite4,sprite5])
 test_group = pygame.sprite.Group(sprite2)
@@ -100,18 +102,34 @@ while run:
 
         sprite2.rect.x+=l+u
         sprite2.rect.y+=k+s
+        # Here we will use REALISTIC physics
             #sprite2.rect.y+=sprite1.rect.y*0.01
+   # if pygame.sprite.collide_mask(sprite4,sprite5):
+     #   posix45 +=(sprite5.rect.x-sprite4.rect.x)
+      #  posiy45 +=(sprite5.rect.y-sprite4.rect.y)
 
+       # alpha45=(v1x*posix45)/(math.sqrt((v1x**2))*math.sqrt((posix45**2)+(posiy45**2)))
+       # alpha45=math.acos(alpha)
+       # vfinsprite4=(v1x+v2x)/(2*math.sin(alpha45))
+       # vfinsprite5=(vix+v2x)/(2*math.cos(alpha45))
 
+       # vfinsprite4x=vfinsprite4*math.cos((math.pi/2)-alpha45)
+       # vfinsprite4y=vfinsprite4*math.sin((math.pi/2)-alpha45)
+       # vfinsprite5x=vfinsprite4*math.cos(alpha45)
+       # vfinsprite5y=-vfinsprite4*math.cos(alpha45)
+
+   # sprite4.rect.move_ip([vfinsprite4x,vfinsprite4y])
+  #  sprite5.rect.move_ip([vfinsprite5x,vfinsprite5y])
     change = sprite1.rect.x
     changey=sprite1.rect.y
     
     alpha=(v1x*v2x+v1y*v2y)/(math.sqrt((v1x**2)+(v1y**2))*math.sqrt((v2x**2)+(v2y**2)))
     alpha=math.acos(alpha)
     
+    
     print(alpha)
-    sprite5.rect.move_ip([v1x,v1y])
-    sprite4.rect.move_ip([v2x,v2y])
+    sprite5.rect.move_ip([v2x,v2y])
+    sprite4.rect.move_ip([v1x,v1y])
 
     sprite2.rect.x+=0.006*posix
     sprite2.rect.y+=0.006*posiy
