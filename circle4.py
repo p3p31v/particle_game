@@ -13,7 +13,7 @@ posiy45=0
 
 v1x=1#era 1
 v1y=0
-v2x=-22#era -2
+v2x=-20#era -2
 v2y=0
 vfinsprite4x=v1x
 vfinsprite4y=v1y
@@ -114,13 +114,14 @@ while run:
     if pygame.sprite.collide_mask(sprite4,sprite5):
         posix45 =(sprite5.rect.x-sprite4.rect.x)
         posiy45 =(sprite5.rect.y-sprite4.rect.y)
-        alpha45=(v1x*posix45)/(math.sqrt((v1x**2))*math.sqrt((posix45**2)+(posiy45**2)))
+        alpha45=(v1x*posix45+v1y*posiy45)/(math.sqrt((v1x**2)+(v1y**2))*math.sqrt((posix45**2)+(posiy45**2)))
+        print(alpha45)
         alpha45=math.acos(alpha45)
-        vfinsprite4=(v1x+v2x)/(2*math.sin(alpha45))
-        vfinsprite5=(v1x+v2x)/(2*math.cos(alpha45))
-        vfinsprite4=abs(vfinsprite4)
-        vfinsprite5=abs(vfinsprite5)
-        print(math.sin(alpha45),math.cos(alpha45),vfinsprite4,vfinsprite5)
+        vfinsprite4=(v1x+v2x)*math.sin(alpha45)
+        vfinsprite5=(v1x+v2x)*math.cos(alpha45)
+        vfinsprite4=vfinsprite4
+        vfinsprite5=vfinsprite5
+        print(vfinsprite4,vfinsprite5)
         vfinsprite4x=vfinsprite4*math.cos((math.pi/2)-alpha45)
         vfinsprite4y=vfinsprite4*math.sin((math.pi/2)-alpha45)
         vfinsprite5x=vfinsprite4*math.cos(alpha45)
@@ -132,9 +133,12 @@ while run:
     v1y=vfinsprite4y
     v2x=vfinsprite5x
     v2y=vfinsprite5y
-   # print(vfinsprite4x,vfinsprite4y,vfinsprite5x,vfinsprite5y)
-    sprite4.rect.move_ip([round(vfinsprite4x),round(vfinsprite4y)])
-    sprite5.rect.move_ip([round(vfinsprite5x),round(vfinsprite5y)])
+    sprite4.rect.x+=v1x
+    sprite4.rect.y+=v1y
+    sprite5.rect.x+=v2x
+    sprite5.rect.y+=v2y
+    #sprite4.rect.move_ip([round(vfinsprite4x),round(vfinsprite4y)])
+    #sprite5.rect.move_ip([round(vfinsprite5x),round(vfinsprite5y)])
     change = sprite1.rect.x
     changey=sprite1.rect.y
     
@@ -153,7 +157,14 @@ while run:
         posix *=-1
     if sprite2.rect.bottom>= 1000 or sprite2.rect.top<=0:
         posiy *=-1
- 
+    if sprite4.rect.right>=1000 or sprite4.rect.left<=0:
+        vfinsprite4x*=-1
+    if sprite4.rect.bottom>= 1000 or sprite4.rect.top<=0:
+        vfinsprite4y*=-1
+    if sprite5.rect.right>=1000 or sprite5.rect.left<=0:
+        vfinsprite5x*=-1
+    if sprite5.rect.bottom>=1000 or sprite5.rect.top<=0:
+        vfinsprite5y*=-1
 
 
     collider_circle(sprite2,sprite3)
@@ -161,7 +172,8 @@ while run:
 
     for s in collide:
         pygame.draw.circle(window, (255, 255, 255), s.rect.center, s.rect.width // 2, 5)
-       
+    clockobject = pygame.time.Clock()
+    clockobject.tick(60)
     pygame.display.flip()
 
 pygame.quit()
