@@ -8,18 +8,10 @@ posicy=0
 posicx=0
 posicx1=0
 posicy1=0
-posix45=0
-posiy45=0
-
-v1x=1#era 1
+v1x=1
 v1y=0
-v2x=-20#era -2
-v2y=0
-vfinsprite4x=v1x
-vfinsprite4y=v1y
-vfinsprite5x=v2x
-vfinsprite5y=v2y
-
+v2x=1
+v2y=1
 alpha=0#(v1x*v2x+v1y*v2y)/(math.sqrt((v1x^2)+(v1y^2))*math.sqrt((v2x^2)+(v2y^2)))
 pygame.init()
 window = pygame.display.set_mode((1000, 1000))
@@ -39,16 +31,15 @@ sprite3.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
 sprite4 = pygame.sprite.Sprite()
 sprite4.image = pygame.Surface((80,80),pygame.SRCALPHA)
-pygame.draw.circle(sprite4.image, (255,0,255),(40,40),40)
+pygame.draw.circle(sprite4.image, (0,0,55),(40,40),40)
 sprite4.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
 sprite5 = pygame.sprite.Sprite()
 sprite5.image = pygame.Surface((80,80),pygame.SRCALPHA)
-pygame.draw.circle(sprite5.image, (255,255,0),(40,40),40)
+pygame.draw.circle(sprite5.image, (0,0,125),(40,40),40)
 sprite5.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
-sprite4.rect.x=100
-sprite4.rect.y=400
+
 
 all_group = pygame.sprite.Group([sprite2, sprite1,sprite3,sprite4,sprite5])
 test_group = pygame.sprite.Group(sprite2)
@@ -109,46 +100,17 @@ while run:
 
         sprite2.rect.x+=l+u
         sprite2.rect.y+=k+s
-        # Here we will use REALISTIC physics
             #sprite2.rect.y+=sprite1.rect.y*0.01
-    if pygame.sprite.collide_mask(sprite4,sprite5):
-        posix45 =(sprite5.rect.x-sprite4.rect.x)
-        posiy45 =(sprite5.rect.y-sprite4.rect.y)
-        alpha45=(v1x*posix45+v1y*posiy45)/(math.sqrt((v1x**2)+(v1y**2))*math.sqrt((posix45**2)+(posiy45**2)))
-        print(alpha45)
-        alpha45=math.acos(alpha45)
-        vfinsprite4=(v1x+v2x)*math.sin(alpha45)
-        vfinsprite5=(v1x+v2x)*math.cos(alpha45)
-        vfinsprite4=vfinsprite4
-        vfinsprite5=vfinsprite5
-        print(vfinsprite4,vfinsprite5)
-        vfinsprite4x=vfinsprite4*math.cos((math.pi/2)-alpha45)
-        vfinsprite4y=vfinsprite4*math.sin((math.pi/2)-alpha45)
-        vfinsprite5x=vfinsprite4*math.cos(alpha45)
-        vfinsprite5y=-vfinsprite4*math.cos(alpha45)
-    #    sprite5.rect.y+=10
-    
-   
-    v1x=vfinsprite4x
-    v1y=vfinsprite4y
-    v2x=vfinsprite5x
-    v2y=vfinsprite5y
-    sprite4.rect.x+=v1x
-    sprite4.rect.y+=v1y
-    sprite5.rect.x+=v2x
-    sprite5.rect.y+=v2y
-    #sprite4.rect.move_ip([round(vfinsprite4x),round(vfinsprite4y)])
-    #sprite5.rect.move_ip([round(vfinsprite5x),round(vfinsprite5y)])
+
+
     change = sprite1.rect.x
     changey=sprite1.rect.y
     
-    alpha=(v1x*v2x+v1y*v2y)/(math.sqrt((v1x**2)+(v1y**2))*math.sqrt((v2x**2)+(v2y**2)))
-    alpha=math.acos(alpha)
-    
-    
+    alpha=math.acos((v1x*v2x+v1y*v2y)/(math.sqrt((v1x^2)+(v1y^2))*math.sqrt((v2x^2)+(v2y^2))))
+
     print(alpha)
-    #sprite5.rect.move_ip([v2x,v2y])
-    #sprite4.rect.move_ip([v1x,v1y])
+    sprite5.rect.move_ip([v1x,v1y])
+    sprite4.rect.move_ip([v2x,v2y])
 
     sprite2.rect.x+=0.006*posix
     sprite2.rect.y+=0.006*posiy
@@ -157,14 +119,7 @@ while run:
         posix *=-1
     if sprite2.rect.bottom>= 1000 or sprite2.rect.top<=0:
         posiy *=-1
-    if sprite4.rect.right>=1000 or sprite4.rect.left<=0:
-        vfinsprite4x*=-1
-    if sprite4.rect.bottom>= 1000 or sprite4.rect.top<=0:
-        vfinsprite4y*=-1
-    if sprite5.rect.right>=1000 or sprite5.rect.left<=0:
-        vfinsprite5x*=-1
-    if sprite5.rect.bottom>=1000 or sprite5.rect.top<=0:
-        vfinsprite5y*=-1
+ 
 
 
     collider_circle(sprite2,sprite3)
@@ -172,8 +127,7 @@ while run:
 
     for s in collide:
         pygame.draw.circle(window, (255, 255, 255), s.rect.center, s.rect.width // 2, 5)
-    clockobject = pygame.time.Clock()
-    clockobject.tick(60)
+       
     pygame.display.flip()
 
 pygame.quit()
