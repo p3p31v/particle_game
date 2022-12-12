@@ -10,7 +10,10 @@ posicx1=0
 posicy1=0
 posix45=0
 posiy45=0
-
+k1=0
+k2=0
+k3=0
+k4=0
 v1x=10#10
 v1y=0
 v2x=-22#-22
@@ -114,6 +117,26 @@ while run:
     if pygame.sprite.collide_mask(sprite4,sprite5):
         posix45 =sprite5.rect.x-sprite4.rect.x
         posiy45 =sprite5.rect.y-sprite4.rect.y
+        if posix45>0 and posiy45>0:
+            k1=1
+            k2=1
+            k3=1
+            k4=-1
+        elif posix45>0 and posiy45<0:
+            k1=1
+            k2=-1
+            k3=1
+            k4=1
+        elif posix45<0 and posiy45<0:
+            k1=-1
+            k2=-1
+            k3=-1
+            k4=1
+        elif posix45<0 and posiy45>0:
+            k1=-1
+            k2=1
+            k3=-1
+            k4=-1
         print('vector de posicion')
         print(posix45,posiy45)
         alpha45=(v1x*posix45+v1y*posiy45)/(math.sqrt((v1x**2)+(v1y**2))*math.sqrt((posix45**2)+(posiy45**2)))
@@ -125,14 +148,14 @@ while run:
         vfinsprite4=vfinsprite4
         vfinsprite5=vfinsprite5
         print(vfinsprite4,vfinsprite5)
-        vfinsprite4x=vfinsprite4*math.cos((math.pi/2)-alpha45)
-        vfinsprite4y=-vfinsprite4*math.sin((math.pi/2)-alpha45)
-        vfinsprite5x=vfinsprite5*math.cos(alpha45)# la amarilla
-        vfinsprite5y=vfinsprite5*math.sin(alpha45)
-        sprite4.rect.x-=v1x
-        sprite4.rect.y+=v1y
-        sprite5.rect.x-=v2x
-        sprite5.rect.y-=v2y
+        vfinsprite4x=k1*vfinsprite4*math.cos((math.pi/2)-alpha45)
+        vfinsprite4y=k2*vfinsprite4*math.sin((math.pi/2)-alpha45)
+        vfinsprite5x=k3*vfinsprite5*math.cos(alpha45)# la amarilla
+        vfinsprite5y=k4*vfinsprite5*math.sin(alpha45)
+        sprite4.rect.x=sprite4.rect.x-k1*v1x
+        sprite4.rect.y=sprite4.rect.y-k2*v1y
+        sprite5.rect.x=sprite5.rect.x - k3*v2x
+        sprite5.rect.y=sprite5.rect.y-k4*v2y
         print("rosa y despues amarilla")
         print(vfinsprite4x,vfinsprite4y,vfinsprite5x,vfinsprite5y)
     #    sprite5.rect.y+=10
