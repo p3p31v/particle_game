@@ -51,7 +51,7 @@ pygame.draw.circle(sprite5.image, (255,255,0),(40,40),40)
 sprite5.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
 sprite4.rect.x=100
-sprite4.rect.y=495#400
+sprite4.rect.y=400#400
 
 all_group = pygame.sprite.Group([sprite2, sprite1,sprite3,sprite4,sprite5])
 test_group = pygame.sprite.Group(sprite2)
@@ -118,25 +118,40 @@ while run:
         posix45 =sprite5.rect.x-sprite4.rect.x
         posiy45 =sprite5.rect.y-sprite4.rect.y
         if posix45>0 and posiy45>0:
-            k1=1
-            k2=1
-            k3=1
-            k4=-1
+            if math.sqrt(v1x**2+v1y**2)<math.sqrt(v2x**2+v2y**2):
+                k1=1
+                k2=1
+                k3=1
+                k4=-1
+            elif math.sqrt(v1x**2+v1y**2)>math.sqrt(v2x**2+v2y**2):
+                k1=1
+                k2=-1
+                k3=1
+                k4=1
         elif posix45>0 and posiy45<0:
-            k1=1
-            k2=-1
-            k3=1
-            k4=1
+            if math.sqrt(v1x**2+v1y**2)<math.sqrt(v2x**2+v2y**2):
+                k1=1
+                k2=-1
+                k3=1
+                k4=1
+            elif math.sqrt(v1x**2+v1y**2)>math.sqrt(v2x**2+v2y**2):
+                k1=1
+                k2=1
+                k3=1
+                k4=-1
+#no se por que cambia el signo de la velocidad, tengo que mirarlo
+
         elif posix45<0 and posiy45<0:
-            k1=-1
-            k2=-1
-            k3=-1
-            k4=1
+            if math.sqrt(v1x**2+v1y**2)<math.sqrt(v2x**2+v2y**2):
+                k1=-1
+                k2=-1
+                k3=-1
+                k4=1
         elif posix45<0 and posiy45>0:
-            k1=-1
-            k2=1
-            k3=-1
-            k4=-1
+                k1=-1
+                k2=1
+                k3=-1
+                k4=-1
         print('vector de posicion')
         print(posix45,posiy45)
         alpha45=(v1x*posix45+v1y*posiy45)/(math.sqrt((v1x**2)+(v1y**2))*math.sqrt((posix45**2)+(posiy45**2)))
@@ -206,7 +221,7 @@ while run:
     for s in collide:
         pygame.draw.circle(window, (255, 255, 255), s.rect.center, s.rect.width // 2, 5)
     clockobject = pygame.time.Clock()
-    clockobject.tick(25)
+    clockobject.tick(15)
     pygame.display.flip()
 
 pygame.quit()
