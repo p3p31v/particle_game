@@ -14,9 +14,9 @@ k1=0
 k2=0
 k3=0
 k4=0
-v1x=13#10
+v1x=5#10
 v1y=0
-v2x=-22#-22
+v2x=-12#-22
 v2y=0
 vfinsprite4x=v1x
 vfinsprite4y=v1y
@@ -92,6 +92,8 @@ while run:
     k=0
     s=0
     print(sprite1.rect.center)
+    posix45 =sprite5.rect.x-sprite4.rect.x
+    posiy45 =sprite5.rect.y-sprite4.rect.y
 
     if pygame.sprite.collide_mask(sprite1,sprite2):
         #posi es el vector de posicion diferencia entre la posicion de los centros de las esferas
@@ -187,10 +189,10 @@ while run:
     #    sprite5.rect.y+=10
     
    
-    v1x=vfinsprite4x
-    v1y=vfinsprite4y
-    v2x=vfinsprite5x
-    v2y=vfinsprite5y
+    v1x=vfinsprite4x# + 0.005*posix45
+    v1y=vfinsprite4y# + 0.005*posiy45
+    v2x=vfinsprite5x# - 0.005*posix45
+    v2y=vfinsprite5y# - 0.005*posiy45
 
     sprite4.rect.x+=v1x
     sprite4.rect.y+=v1y
