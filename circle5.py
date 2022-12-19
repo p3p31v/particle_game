@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 posix=0
 posiy=0
 change=0
@@ -14,9 +15,9 @@ k1=0
 k2=0
 k3=0
 k4=0
-v1x=5#10
+v1x=random.randint(-10,10)#10
 v1y=0
-v2x=-12#-22
+v2x=random.randint(-10,10)#-22
 v2y=0
 vfinsprite4x=v1x
 vfinsprite4y=v1y
@@ -50,8 +51,9 @@ sprite5.image = pygame.Surface((80,80),pygame.SRCALPHA)
 pygame.draw.circle(sprite5.image, (255,255,0),(40,40),40)
 sprite5.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
-sprite5.rect.x=100#sprite4.rect.x=100
+sprite4.rect.x=100#sprite4.rect.x=100
 sprite4.rect.y=400#sprite4.rect.y=400
+
 
 all_group = pygame.sprite.Group([sprite2, sprite1,sprite3,sprite4,sprite5])
 test_group = pygame.sprite.Group(sprite2)
@@ -219,13 +221,13 @@ while run:
     if sprite2.rect.bottom>= 1000 or sprite2.rect.top<=0:
         posiy *=-1
     if sprite4.rect.right>=1000 or sprite4.rect.left<=0:
-        vfinsprite4x*=-1
+        vfinsprite4x *=-1
     if sprite4.rect.bottom>= 1000 or sprite4.rect.top<=0:
-        vfinsprite4y*=-1
+        vfinsprite4y *=-1
     if sprite5.rect.right>=1000 or sprite5.rect.left<=0:
-        vfinsprite5x*=-1
+        vfinsprite5x *=-1
     if sprite5.rect.bottom>=1000 or sprite5.rect.top<=0:
-        vfinsprite5y*=-1
+        vfinsprite5y *=-1
 
 
     collider_circle(sprite2,sprite3)
