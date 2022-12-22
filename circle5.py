@@ -15,9 +15,9 @@ k1=0
 k2=0
 k3=0
 k4=0
-v1x=random.randint(-10,10)#10
+v1x=10#random.randint(-10,10)#10
 v1y=0
-v2x=random.randint(-10,10)#-22
+v2x=-22#random.randint(-10,10)#-22
 v2y=0
 vfinsprite4x=v1x
 vfinsprite4y=v1y
@@ -191,11 +191,12 @@ while run:
     #    sprite5.rect.y+=10
     
    
-    v1x=vfinsprite4x# + 0.005*posix45
-    v1y=vfinsprite4y# + 0.005*posiy45
-    v2x=vfinsprite5x# - 0.005*posix45
-    v2y=vfinsprite5y# - 0.005*posiy45
-
+    v1x=vfinsprite4x #+ 0.01*posix45
+    v1y=vfinsprite4y #+ 0.01*posiy45
+    v2x=vfinsprite5x #- 0.01*posix45
+    v2y=vfinsprite5y #- 0.01*posiy45
+    print("v1x,v1y,v2x,v2y")
+    print(v1x,v1y,v2x,v2y)
     sprite4.rect.x+=v1x
     sprite4.rect.y+=v1y
     sprite5.rect.x+=v2x
