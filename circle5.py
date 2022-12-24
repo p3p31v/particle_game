@@ -11,6 +11,8 @@ posicx1=0
 posicy1=0
 posix45=0
 posiy45=0
+posix45_0=0
+posiy45_0=0
 k1=0
 k2=0
 k3=0
@@ -52,7 +54,7 @@ pygame.draw.circle(sprite5.image, (255,255,0),(40,40),40)
 sprite5.rect = pygame.Rect(*window.get_rect().center,0,0).inflate(80,80)
 
 sprite4.rect.x=100#sprite4.rect.x=100
-sprite4.rect.y=400#sprite4.rect.y=400
+sprite4.rect.y=800#sprite4.rect.y=400
 
 
 all_group = pygame.sprite.Group([sprite2, sprite1,sprite3,sprite4,sprite5])
@@ -94,8 +96,8 @@ while run:
     k=0
     s=0
     print(sprite1.rect.center)
-    posix45 =sprite5.rect.x-sprite4.rect.x
-    posiy45 =sprite5.rect.y-sprite4.rect.y
+    posix45_0 =sprite5.rect.x-sprite4.rect.x
+    posiy45_0 =sprite5.rect.y-sprite4.rect.y
 
     if pygame.sprite.collide_mask(sprite1,sprite2):
         #posi es el vector de posicion diferencia entre la posicion de los centros de las esferas
@@ -191,12 +193,13 @@ while run:
     #    sprite5.rect.y+=10
     
    
-    v1x=vfinsprite4x #+ 0.01*posix45
-    v1y=vfinsprite4y #+ 0.01*posiy45
-    v2x=vfinsprite5x #- 0.01*posix45
-    v2y=vfinsprite5y #- 0.01*posiy45
-    print("v1x,v1y,v2x,v2y")
-    print(v1x,v1y,v2x,v2y)
+    v1x=vfinsprite4x + 0.1*posix45_0/((0.01*posix45_0)**2+(0.01*posiy45_0)**2)
+    v1y=vfinsprite4y + 0.1*posiy45_0/((0.01*posix45_0)**2+(0.01*posiy45_0)**2)
+    v2x=vfinsprite5x - 0.1*posix45_0/((0.01*posix45_0)**2+(0.01*posiy45_0)**2)
+    v2y=vfinsprite5y - 0.1*posiy45_0/((0.01*posix45_0)**2+(0.01*posiy45_0)**2)
+    pu=0.001*posiy45_0/((0.01*posix45_0)**2+(0.01*posiy45_0)**2)
+    print("v1x,posix45_0,v1y,posiy45_0,v2x,-posix45_0,v2y,-posiy45_0,pu")
+    print(v1x,posix45_0,v1y,posiy45_0,v2x,-posix45_0,v2y,-posiy45_0,pu)
     sprite4.rect.x+=v1x
     sprite4.rect.y+=v1y
     sprite5.rect.x+=v2x
