@@ -1,9 +1,6 @@
-# particle_game
-My first game with pygame. Play with funny particles.
-
 # Particle Game
 
-A program to apply for jobs automatically using Selenium and Glassdoor.com website.
+My first game with pygame. Play with funny particles.
 
 ## Getting Started
 
