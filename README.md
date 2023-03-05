@@ -21,7 +21,7 @@ vim circle5.py
 ```
 To run the program after we edit it, we use:
 ```
-python3 circle5.py
+python circle5.py
 ```
 ## Built With
 
